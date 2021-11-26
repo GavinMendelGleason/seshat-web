@@ -4,7 +4,9 @@ const team = process.env.TERMINUSDB_TEAM
 const key = process.env.TERMINUSDB_ACCESS_TOKEN
 const url = `https://cloud.terminusdb.com/${team}/`
 const client = new TerminusDBClient.WOQLClient(url,
-                    {user:"user@email.com", organization:team})
+                                               {user:"jacobian@gmail.com",
+                                                organization:team})
+client.setApiKey(key)
 
 const PORT = process.env.PORT || 3000;
 
@@ -13,10 +15,13 @@ app.get("", (req, res) => {
         client.db('seshat')
         const query = {
             "type": "Polity",
-            "query" : { "@id" : "AfDurrn" }
+            "count" : 1
         }
-        result = await client.queryDocument(query, { as_list : true } );
-        res.send(JSON.stringify(result))
+        client.queryDocument(query, { as_list : true } )
+            .then(result=>{
+                console.log(result)
+                res.send(JSON.stringify(result))
+            })
     }).catch((err)=>{
         console.error(err);
     });
