@@ -20,7 +20,7 @@ app.get("", (req, res) => {
         client.queryDocument(query, { as_list : true } )
             .then(result=>{
                 console.log(result)
-                res.send(JSON.stringify(result))
+                res.send('<pre id="json">' + JSON.stringify(result, null, 4) + '</pre>')
             })
     }).catch((err)=>{
         console.error(err);
