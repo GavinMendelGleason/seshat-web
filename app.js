@@ -9,12 +9,17 @@ const client = new TerminusDBClient.WOQLClient(url,
 const PORT = process.env.PORT || 3000;
 
 app.get("", (req, res) => {
-    const query = {
-        "type": "Polity",
-        "query" : { "@id" : "AfDurrn" }
-    }
-    result = await client.queryDocument(query, { as_list : true } );
-    res.send(JSON.stringify(result))
+    client.connect().then(()=>{
+        client.db('seshat')
+        const query = {
+            "type": "Polity",
+            "query" : { "@id" : "AfDurrn" }
+        }
+        result = await client.queryDocument(query, { as_list : true } );
+        res.send(JSON.stringify(result))
+    }).catch((err)=>{
+        console.error(err);
+    });
 });
 
 app.listen(PORT, () => {
