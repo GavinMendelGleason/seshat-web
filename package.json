@@ -1,16 +1,8 @@
 {
-  "name": "seshat-web",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@terminusdb/terminusdb-client": "github:terminusdb/terminusdb-client",
-    "express": "^4.17.1"
+    "dot": "^1.1.3",
+    "express": "^4.17.1",
+    "mustache": "^4.2.0"
   }
 }
