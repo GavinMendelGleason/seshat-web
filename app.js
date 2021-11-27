@@ -189,43 +189,41 @@ run();
 `
 
 app.get("", (req, res) => {
-    client.connect().then(()=>{
-        client.db('seshat')
-        const preq = {
-            "type": "PrecedingPolity",
-        }
-        pre_results_promise = client.queryDocument(preq, { as_list : true } )
-        const nodes = WOQL.path("v:@id",'general_variables,original_name,known,value', "v:name", "v:path")
-        pre_node_results = client.query(nodes);
-        Promise.all([pre_results_promise, pre_node_results])
-            .then(response => {
-                var links = []
-                var nodes = []
-                pre_result = response[0];
-                pre_nodes = response[1]['bindings'];
+    client.db('seshat')
+    const preq = {
+        "type": "PrecedingPolity",
+    }
+    pre_results_promise = client.queryDocument(preq, { as_list : true } )
+    const nodes = WOQL.path("v:@id",
+                            'general_variables,original_name,known,value',
+                            "v:name", "v:path")
+    pre_node_results = client.query(nodes);
+    Promise.all([pre_results_promise, pre_node_results])
+        .then(response => {
+            var links = []
+            var nodes = []
+            pre_result = response[0];
+            pre_nodes = response[1]['bindings'];
 
-                for (i = 0; i < pre_result.length; i++) {
-                    links.push( { 'source' : pre_result[i]['preceding'],
-                                  'target' : pre_result[i]['polity'],
-                                  'weight' : 90})
-                }
-                var nodes = []
-                for (i = 0; i < pre_nodes.length; i++) {
-                    var node = {}
-                    node['name'] = pre_nodes[i]['name']['@value']
-                    node['@id'] = pre_nodes[i]['@id']
-                    nodes.push(node)
-                }
-                link_string = JSON.stringify([...new Set(links)]);
-                node_string = JSON.stringify([...new Set(nodes)]);
-                var js = `{ 'nodes' : ${node_string}, 'links' : ${link_string} }`
+            for (i = 0; i < pre_result.length; i++) {
+                links.push( { 'source' : pre_result[i]['preceding'],
+                              'target' : pre_result[i]['polity'],
+                              'weight' : 90})
+            }
+            var nodes = []
+            for (i = 0; i < pre_nodes.length; i++) {
+                var node = {}
+                node['name'] = pre_nodes[i]['name']['@value']
+                node['@id'] = pre_nodes[i]['@id']
+                nodes.push(node)
+            }
+            link_string = JSON.stringify([...new Set(links)]);
+            node_string = JSON.stringify([...new Set(nodes)]);
+            var js = `{ 'nodes' : ${node_string}, 'links' : ${link_string} }`
 
-                var output = Mustache.render(TEMPL, {json : js});
-                res.send(output)
-            })
-    }).catch((err)=>{
-        console.error(err);
-    });
+            var output = Mustache.render(TEMPL, {json : js});
+            res.send(output)
+        })
 });
 
 app.listen(PORT, () => {
