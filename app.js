@@ -50,8 +50,8 @@ var run = function(response){
         nodeStroke = "#fff", // node stroke color
         nodeStrokeWidth = 1.5, // node stroke width, in pixels
         nodeStrokeOpacity = 1, // node stroke opacity
-        nodeRadius = 5, // node radius, in pixels
-        nodeStrength,
+        nodeRadius = 10, // node radius, in pixels
+        nodeStrength = -2,
         linkSource = ({source}) => source, // given d in links, returns a node identifier string
         linkTarget = ({target}) => target, // given d in links, returns a node identifier string
         linkStroke = "#999", // link stroke color
