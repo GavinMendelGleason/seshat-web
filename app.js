@@ -50,7 +50,7 @@ var run = function(response){
         nodeStroke = "#fff", // node stroke color
         nodeStrokeWidth = 1.5, // node stroke width, in pixels
         nodeStrokeOpacity = 1, // node stroke opacity
-        nodeRadius = 15, // node radius, in pixels
+        nodeRadius = 5, // node radius, in pixels
         nodeStrength,
         linkSource = ({source}) => source, // given d in links, returns a node identifier string
         linkTarget = ({target}) => target, // given d in links, returns a node identifier string
@@ -58,7 +58,7 @@ var run = function(response){
         linkStrokeOpacity = 0.6, // link stroke opacity
         linkStrokeWidth = 2.5, // given d in links, returns a stroke width in pixels
         linkStrokeLinecap = "round", // link stroke linecap
-        linkStrength = .05,
+        linkStrength = .08,
         colors = d3.schemeTableau10, // an array of color strings, for the node groups
         width = 640, // outer width, in pixels
         height = 400, // outer height, in pixels
