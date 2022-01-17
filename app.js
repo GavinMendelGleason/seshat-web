@@ -188,14 +188,7 @@ run();
 </body>
 `
 
-var current_time = function(){
-    const d = new Date();
-    return d
-}
-
 app.get("", (req, res) => {
-    var start = current_time
-
     client.db('seshat')
     const preq = {
         "type": "PrecedingPolity",
